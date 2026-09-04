@@ -43,11 +43,13 @@
         🍰 Belanja Cake
        </a>
       </li>
+      <?php if (!is_admin()): ?>
       <li>
        <a class="nav-link" href="riwayat.php">
         📋 Pesanan Saya
        </a>
       </li>
+      <?php endif; ?>
      </ul>
      <div class="d-flex align-items-center gap-2">
       <a class="cart-pill" href="keranjang.php" title="Buka keranjang">
