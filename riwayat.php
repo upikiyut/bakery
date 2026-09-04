@@ -1,4 +1,22 @@
-<?php require "config/koneksi.php";require "config/helpers.php";wajib_login();$pid=(int)$_SESSION["pelanggan"]["id"];$s=$conn->prepare("SELECT p.*, py.status_pembayaran, py.metode_pembayaran, py.jumlah_bayar, py.tanggal_bayar FROM pesanan p LEFT JOIN pembayaran py ON py.id_pesanan=p.id_pesanan WHERE p.id_pelanggan=? ORDER BY p.id_pesanan DESC");$s->bind_param("i",$pid);$s->execute();$r=$s->get_result();$page_title="Pesanan Saya | Bunéa Bakery";require "partials/header.php";?>
+<?php
+require "config/koneksi.php";
+require "config/helpers.php";
+wajib_login();
+
+if (is_admin()) {
+    header("Location: admin/index.php");
+    exit;
+}
+
+$pid = (int)$_SESSION["pelanggan"]["id"];
+$s=$conn->prepare("SELECT p.*, py.status_pembayaran, py.metode_pembayaran, py.jumlah_bayar, py.tanggal_bayar FROM pesanan p LEFT JOIN pembayaran py ON py.id_pesanan=p.id_pesanan WHERE p.id_pelanggan=? ORDER BY p.id_pesanan DESC");
+$s->bind_param("i",$pid);
+$s->execute();
+$r=$s->get_result();
+$page_title="Pesanan Saya | Bunéa Bakery";
+require "partials/header.php";
+?>
+
 <div class="container page-head">
  <div class="section-kicker">
   Your orders
